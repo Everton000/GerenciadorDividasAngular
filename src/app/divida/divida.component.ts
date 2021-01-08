@@ -4,6 +4,8 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
+
+import { DialogInfoComponent } from './../dialog-info/dialog-info.component';
 import { DividaDialogComponent } from '../divida-dialog/divida-dialog.component';
 
 @Component({
@@ -14,12 +16,17 @@ import { DividaDialogComponent } from '../divida-dialog/divida-dialog.component'
 export class DividaComponent implements AfterViewInit {
   constructor(public dialog: MatDialog) {}
 
-  displayedColumns: string[] = ['select', 'dividaId', 'clienteNome', 'dividaMotivo', 'dividaData', 'dividaValor', 'edit'];
+  displayedColumns: string[] = [
+    'select', 'dividaId', 'clienteNome', 'dividaMotivo', 'dividaData', 'dividaValor', 'edit'
+  ];
+
   dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
   selection = new SelectionModel<PeriodicElement>(true, []);
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
+
+  private dividas: PeriodicElement[];
 
   // tslint:disable-next-line: typedef
   ngAfterViewInit() {
@@ -67,15 +74,10 @@ export class DividaComponent implements AfterViewInit {
     const dialogRef = this.dialog.open(DividaDialogComponent, {
       width: '50%',
       data: {
-        dialogTitle: 'Nova Dívida',
-        // passar valores vazios (instancia do objeto)
-        motivo: ''
+        dialogTitle: 'Nova Dívida'
       }
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
-    });
   }
 
   // tslint:disable-next-line: typedef
@@ -86,7 +88,7 @@ export class DividaComponent implements AfterViewInit {
 
 
 
-    const dialogRef = this.dialog.open(DividaDialogComponent, {
+    this.dialog.open(DividaDialogComponent, {
       width: '50%',
       data: {
         dialogTitle: 'Alterar Dívida',
@@ -96,10 +98,19 @@ export class DividaComponent implements AfterViewInit {
         data: Date.now()
       },
     });
+  }
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
+  openDialogInfo(): void {
+    this.dialog.open(DialogInfoComponent, {
+      width: '400px',
+      data: {title: 'Atenção', text: 'Selecione uma ou mais dívidas da listagem para continuar.'}
     });
+  }
+
+  dividasExcluir(): void {
+    // utilize o selection
+    this.dividas = this.selection.selected;
+    console.log(this.dividas);
   }
 }
 

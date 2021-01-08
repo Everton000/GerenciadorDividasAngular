@@ -18,16 +18,19 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { DividaComponent } from './divida/divida.component';
 import { DividaDialogComponent } from './divida-dialog/divida-dialog.component';
+import { DialogInfoComponent } from './dialog-info/dialog-info.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     DividaComponent,
-    DividaDialogComponent
+    DividaDialogComponent,
+    DialogInfoComponent
   ],
   imports: [
     BrowserModule,
@@ -50,7 +53,8 @@ import { DividaDialogComponent } from './divida-dialog/divida-dialog.component';
     MatButtonToggleModule,
     MatSlideToggleModule,
     MatDialogModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
