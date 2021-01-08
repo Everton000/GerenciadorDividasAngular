@@ -3,6 +3,8 @@ import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { MatDialog } from '@angular/material/dialog';
+import { DividaDialogComponent } from '../divida-dialog/divida-dialog.component';
 
 @Component({
   selector: 'app-divida',
@@ -10,6 +12,8 @@ import { MatTableDataSource } from '@angular/material/table';
   styleUrls: ['divida.component.css']
 })
 export class DividaComponent implements AfterViewInit {
+  constructor(public dialog: MatDialog) {}
+
   displayedColumns: string[] = ['select', 'dividaId', 'clienteNome', 'dividaMotivo', 'dividaData', 'dividaValor', 'edit'];
   dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
   selection = new SelectionModel<PeriodicElement>(true, []);
@@ -58,6 +62,45 @@ export class DividaComponent implements AfterViewInit {
     return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.dividaId + 1}`;
   }
 
+  // tslint:disable-next-line: typedef
+  openDialogAdd() {
+    const dialogRef = this.dialog.open(DividaDialogComponent, {
+      width: '50%',
+      data: {
+        dialogTitle: 'Nova Dívida',
+        // passar valores vazios (instancia do objeto)
+        motivo: ''
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
+  }
+
+  // tslint:disable-next-line: typedef
+  openDialogEdit(id: number): void {
+
+    // ToDo function para buscar os dados e exibir no form
+
+
+
+
+    const dialogRef = this.dialog.open(DividaDialogComponent, {
+      width: '50%',
+      data: {
+        dialogTitle: 'Alterar Dívida',
+        clienteId: 'option1',
+        motivo: 'teste',
+        valor: 123,
+        data: Date.now()
+      },
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
+  }
 }
 
 export interface PeriodicElement {

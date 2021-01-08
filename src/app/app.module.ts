@@ -16,14 +16,18 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatInputModule } from '@angular/material/input';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { AppComponent } from './app.component';
 import { DividaComponent } from './divida/divida.component';
+import { DividaDialogComponent } from './divida-dialog/divida-dialog.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    DividaComponent
+    DividaComponent,
+    DividaDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -44,7 +48,9 @@ import { DividaComponent } from './divida/divida.component';
     MatTooltipModule,
     MatInputModule,
     MatButtonToggleModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    MatDialogModule,
+    MatSnackBarModule
   ],
   providers: [],
   bootstrap: [AppComponent]
